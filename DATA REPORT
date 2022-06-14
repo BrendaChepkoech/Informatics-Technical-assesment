@@ -1,0 +1,176 @@
+
+HOSPITAL INFORMATION ANALYSIS
+
+BUSINESS UNDERSTANDING
+Huge amounts of data are created daily in every healthcare sector. Healthcare analytics is therefore key.  The purpose of healthcare data analytics includes the following: using data-driven findings to predict and solve a problem before it is too late, but also assessing methods and treatments faster, keeping better track of inventory, involving patients more in their own health, and empowering them with the tools to do so.
+
+
+# BUSINESS OBJECTIVE
+The objectives for the analysis include;
+Average outpatient(inclusive of copayments) and inpatient medicare payments ranked per provider for each year of available data.
+Time series analysis of the average charge on different APC services per provider over the three years
+Geographical analysis by the state on affordable providers that offer emergency charges
+Analyze the top 10 prominent inpatients' ICD10 diagnoses based on state using their ICD10 Chapter and Block Descriptions
+
+
+# DATA UNDERSTANDING
+The datasets were provided by Savanna Informatics for the analysis
+
+Healthcare based data provided;
+
+A SQLite database dump that contains tables on annual outpatient charges from the year 2011 to 2013.The table names are suffixed with their corresponding years
+JSON files containing annual inpatient charges from the year 2011 to 2013.The table names are suffixed with their corresponding years.
+A csv file containing general provider information.
+(Not Provided) Access to ICD10  API - access token gotten by registering at (Home Page ICD API (who.int))
+
+The schema(s) for the provided tables are described in section below:
+
+OUTPATIENT CHARGES TABLE
+provider_id (FK)
+  String
+A unique code for identifying  providers.
+provider_name                                   
+
+ String
+Name of provider
+provider_street_address             
+ String
+The street address of where the provider is physically located
+provider_city                       
+ String
+The city where the provider is physically located.
+provider_state                      
+ String
+The state where the city is physically located.
+provider_zipcode                    
+ Integer
+The zip code at which the provider is physically located.
+apc
+ String
+Code for similar clinical  services offered.
+outpatient_services              
+ Integer
+The number of services billed for outpatient hospital services.
+average_estimated_submitted_charges
+Float
+The average submitted estimated price by the provider for the government covered healthcare services. The charge differs across different hospitals.
+average_total_payments
+Float
+The average of total payments to the provider for the government covered services. Also included in Total Payments are copayment and deductible amounts that the patient is responsible for.
+
+
+
+INPATIENT CHARGES TABLE
+Provider_id (FK)
+String
+A unique code for identifying  providers.
+provider_name                                   
+String
+Name of provider
+provider_street_address             
+String
+The street address of where the provider is physically located
+provider_city                       
+String
+The city where the provider is physically located.
+provider_state                      
+String
+The state where the city is physically located.
+provider_zipcode                    
+Integer
+The zip code at which the provider is physically located.
+ total_discharges                
+Integer
+The number of discharges billed by the provider for inpatient hospital services
+average_covered_charges
+Float
+The provider's average charge for services covered by the Government for all discharges. These varies from hospital to hospital because of differences in hospital charge structures
+average_total_payments
+Float
+The average total payments by all involved parties excluding the government
+average_medicare_payments
+Float
+The average payment by the government. This is for the services that they cover.
+icd_category
+string
+ICD10 category codes for various diagnosis
+
+
+
+
+
+HOSPITAL GENERAL INFO TABLE
+provider_id
+String
+A unique code for identifying  providers.
+ hospital_name                                   
+ String
+Name of hospital
+street_address             
+String
+The street address of where the provider is physically located
+ city                       
+ String
+The city where the provider is physically located.
+ state                      
+String
+The state where the city is physically located.
+ Zip code                    
+Integer
+The zip code at which the provider is physically located.
+mortality_group_measure_count
+Integer
+Number of measures included in the Mortality measure group
+   facility_mortaility_measures_count                
+Integer
+Number of Mortality measures used in the hospital’s overall star rating
+
+
+# DATA ANALYSIS
+Data Analysis was done using Tableau 
+Before the analysis was done the datasets were loaded and previewed on Colab notebook using Python libraries.
+
+I started by loading and previewing the tables in the Outpatient database. Noted that there are 3 tables namely;
+Outpatient_charges_2011
+Outpatient_charges_2012
+Outpatient_charges_2013
+
+I then merged the 3 tables to create one table that has all the outpatient information for the 3 years.
+
+The next step was to merge the inpatient tables to create one table that has all the inpatient information for the 3 years.
+
+After merging the tables, I checked for null values and duplicates and noted that all the datasets do not have duplicates, null values, and hence, do not require any cleaning.
+
+Finally, exported the files to CSV so that I can upload the files to Tableau for Analysis
+
+Analysis
+The Analysis was done using Tableau
+
+Time series analysis of the average charge on different APC services per provider over the three years
+
+
+From the Analysis, we can see that there has been an upward and downward trend in the average total payments over the 3 years.
+
+Geographical analysis by the state on affordable providers that offer emergency charges
+
+
+From the geographical analysis, we can see that there are over 20 states that offer emergency charges.
+
+
+Analyze the top 10 prominent inpatients' ICD10 diagnoses based on state using their ICD10 Chapter and Block Descriptions
+
+
+
+From the table we can see that ICD Category A92  to D11 are the top 10 prominent diagnosis.
+
+
+Average outpatient(inclusive of copayments) and inpatient medicare payments ranked per provider for each year of available data
+
+
+
+
+From the 2 tables, we can see that there is no regular trend over the 3 years. 
+The average payments increase and decrease over time during the 3 years.
+Links for the tools used for analysis.
+Tableau
+Colab
